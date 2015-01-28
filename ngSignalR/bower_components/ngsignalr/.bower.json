@@ -1,0 +1,32 @@
+{
+  "name": "ngSignalR",
+  "version": "0.0.2",
+  "homepage": "https://github.com/danielfoord/ngSignalR",
+  "authors": [
+    "Daniel Foord <danfoord1@gmail.com>"
+  ],
+  "description": "AngularJS Factory for SignalR jQuery clients",
+  "main": "src/ngSignalR.js",
+  "keywords": [
+    "angularjs",
+    "signalr"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.2",
+    "commit": "09c2460cb71a93bda7b170affd6dbf274302015f"
+  },
+  "_source": "git://github.com/danielfoord/ngsignalr.git",
+  "_target": "~0.0.2",
+  "_originalSource": "ngsignalr",
+  "_direct": true
+}

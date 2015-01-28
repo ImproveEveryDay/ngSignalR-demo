@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+<h1 class="page-header"><i class="fa fa-signal"></i>&nbsp;ng-SignalR&nbsp;<small>AngularJS Module for SignalR</small></h1>
+<div class="well well-lg">
+    <div class="clearfix">
+        <h5 style="display: inline-block">Connection State: 
+        <span ng-class="{'text-success': model.connectionOpen, 'text-danger': !model.connectionOpen}">
+            <b>{{model.connectionOpen ? 'Connected': 'Disconnected'}}</b>
+        </span>
+        </h5>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success btn-sm" ng-click="openConnection()" ng-disabled="model.connectionOpen">
+                <i class="fa fa-compress"></i>&nbsp;
+            Connect
+            </a>
+            <a class="btn btn-danger btn-sm" ng-click="closeConnection()" ng-disabled="!model.connectionOpen">
+                <i class="fa fa-expand"></i>&nbsp;
+            Disconnect
+            </a>
+        </div>
+    </div>
+</div>
+<hr>
+<h3 ng-show="model.loading" class="text-center"><i class="fa fa-cog fa-spin"></i>&nbsp;Loading...</h3>
+<div ng-hide="model.loading">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Cpu Usage</div>
+                <div class="panel-body">
+                    <div ng-chart chart-obj="model.cpuChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Today</div>
+                <div class="panel-body text-center">
+                    <h4>{{model.date}}</h4>
+                    <h4>{{model.time}}</h4>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Ram Available</div>
+                <div class="panel-body text-center">
+                    <h3>{{model.ramAvailable}} MB</h3>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Cpu Usage</div>
+                <div class="panel-body text-center">
+                    <span class="chart" easypiechart percent="model.cpuUsage" options="options">
+                        <span class="percent" ng-bind="model.cpuUsage"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,5 @@
+/ngSignalR/bin
+/ngSignalR/obj
+/ngSignalR/*.user
+/*.suo
+/packages
