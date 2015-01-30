@@ -21,6 +21,7 @@ namespace AngularSignal.Tickers
         private readonly object updateStateLock = new object();
         private readonly PerformanceCounter cpuCounter;
         private readonly PerformanceCounter ramCounter;
+        private PerformanceInfo performanceInfo;
 
         public static DemoTicker Instance
         {
@@ -58,20 +59,25 @@ namespace AngularSignal.Tickers
                 {
                     updating = true;
 
-                    var demoPayload = new DemoPayload
+                    performanceInfo = new PerformanceInfo
                     {
                         DateTime = DateTime.Now,
                         CpuUsage = GetCurrentCpuUsage(),
                         RamAvailable = GetAvailableRam()
                     };
 
-                    BroadcastMessage(demoPayload);
+                    BroadcastMessage(performanceInfo);
                     updating = false;
                 }
             }
         }
 
-        public void BroadcastMessage(DemoPayload demoPayload)
+        public PerformanceInfo GetPerformanceInfo()
+        {
+            return performanceInfo;
+        }
+
+        public void BroadcastMessage(PerformanceInfo demoPayload)
         {
             Clients.All.update(DemoPayloadDto.Map(demoPayload));
         }

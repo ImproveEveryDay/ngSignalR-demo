@@ -18,7 +18,7 @@ namespace AngularSignal.Models.Dto
         [JsonProperty("cpuUsage")]
         public string CpuUsage { get; set; }
 
-        public static DemoPayloadDto Map(DemoPayload entity)
+        public static DemoPayloadDto Map(PerformanceInfo entity)
         {
             var dto = new DemoPayloadDto
                 {

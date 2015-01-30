@@ -1,4 +1,5 @@
-﻿using AngularSignal.Tickers;
+﻿using AngularSignal.Models;
+using AngularSignal.Tickers;
 using Microsoft.AspNet.SignalR;
 
 namespace AngularSignal.Hubs
@@ -14,9 +15,9 @@ namespace AngularSignal.Hubs
             demoTicker = ticker;
         }
 
-        public void Update()
+        public PerformanceInfo Update()
         {
-            demoTicker.Update(null);
+            return demoTicker.GetPerformanceInfo();
         }
     }
 }
