@@ -9,10 +9,10 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace AngularSignal.Tickers
 {
-    public class DemoTicker
+    public class PerformanceTicker
     {
-        private readonly static Lazy<DemoTicker> instance = new Lazy<DemoTicker>(
-            () => new DemoTicker(GlobalHost.ConnectionManager.GetHubContext<DemoHub>().Clients)
+        private readonly static Lazy<PerformanceTicker> instance = new Lazy<PerformanceTicker>(
+            () => new PerformanceTicker(GlobalHost.ConnectionManager.GetHubContext<PerformanceHub>().Clients)
         );
 
         private readonly TimeSpan updateInterval = TimeSpan.FromMilliseconds(1000);
@@ -23,7 +23,7 @@ namespace AngularSignal.Tickers
         private readonly PerformanceCounter ramCounter;
         private PerformanceInfo performanceInfo;
 
-        public static DemoTicker Instance
+        public static PerformanceTicker Instance
         {
             get { return instance.Value; }
         }
@@ -35,7 +35,7 @@ namespace AngularSignal.Tickers
 
         private IHubConnectionContext<dynamic> Clients { get; set; }
 
-        private DemoTicker(IHubConnectionContext<dynamic> clients)
+        private PerformanceTicker(IHubConnectionContext<dynamic> clients)
         {
             Clients = clients;
 
@@ -79,7 +79,7 @@ namespace AngularSignal.Tickers
 
         public void BroadcastMessage(PerformanceInfo demoPayload)
         {
-            Clients.All.update(DemoPayloadDto.Map(demoPayload));
+            Clients.All.update(PerformanceInfoDto.Map(demoPayload));
         }
 
         private int GetCurrentCpuUsage()

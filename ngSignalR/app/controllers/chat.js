@@ -42,6 +42,12 @@ function ($scope, signalr, $filter) {
       username: $scope.model.username,
       message: $scope.model.message
     });
+    
+    $scope.model.messages.unshift({
+      username: $scope.model.username,
+      date: $filter('date')(new Date, 'EEE d MMM HH:mm:ss'),
+      content: $scope.model.message
+    });
     $scope.model.message = undefined;
   };
 

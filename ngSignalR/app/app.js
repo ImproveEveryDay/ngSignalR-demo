@@ -1,5 +1,5 @@
 ﻿
-var appRoot = angular.module('main', ['ngRoute', 'ngGrid', 'ngResource', 'ngSignalR', 'easypiechart', 'ngAnimate']);
+var appRoot = angular.module('main', ['ngRoute', 'ngGrid', 'ngResource', 'ngSignalR', 'easypiechart']);
 
 appRoot.config(['$routeProvider', 'signalrProvider', '$logProvider',
 function ($routeProvider, signalrProvider, $logProvider) {
@@ -8,15 +8,6 @@ function ($routeProvider, signalrProvider, $logProvider) {
   .when('/', {
     templateUrl: '/home/main',
     controller: 'MainController'
-  })
-  .when('/performance', {
-    templateUrl: '/home/performance',
-    controller: 'PerformanceController',
-    resolve: {
-      categories: ['performanceService', function (performanceService) {
-        return performanceService.getCategories();
-      }]
-    }
   })
   .when('/chat', {
     templateUrl: '/home/chat',

@@ -28,8 +28,7 @@ namespace AngularSignal.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/app")
                 .Include("~/app/app.js")
-                .Include("~/Scripts/angular-animate.js")
-                .Include("~/bower_components/ngsignalr/src/ngSignalR.js")
+                .Include("~/bower_components/ngsignalr/dist/ngSignalR-0.0.3.js")
                 .IncludeDirectory("~/app/components/services", "*.js", true)
                 .IncludeDirectory("~/app/components/directives", "*.js", true)
                 .IncludeDirectory("~/app/controllers", "*.js", true));
@@ -61,6 +60,10 @@ namespace AngularSignal.App_Start
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            #if (!DEBUG)
+                BundleTable.EnableOptimizations = true;
+            #endif
         }
     }
 }

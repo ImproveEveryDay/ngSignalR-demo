@@ -226,36 +226,25 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\PerformanceController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Hubs\DemoHub.cs" />
-    <Compile Include="Models\DemoPayload.cs" />
-    <Compile Include="Models\Dto\DemoPayloadDto.cs" />
-    <Compile Include="Models\Dto\HardriveDto.cs" />
-    <Compile Include="Models\Dto\PerformanceCounterCategoryDto.cs" />
-    <Compile Include="Models\Hardrive.cs" />
-    <Compile Include="Models\PerformanceRepository.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Hubs\PerformanceHub.cs" />
+    <Compile Include="Models\PerformanceInfo.cs" />
+    <Compile Include="Models\Dto\PerformanceInfoDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Tickers\DemoTicker.cs" />
+    <Compile Include="Tickers\PerformanceTicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\components\directives\ngchart.js" />
     <Content Include="app\components\directives\progbar.js" />
     <Content Include="app\components\directives\angular.easypiechart.js" />
-    <Content Include="app\components\services\performance.js" />
     <Content Include="app\controllers\chat.js" />
-    <Content Include="bower_components\ngsignalr\dist\ngSignalR-0.0.1.js" />
-    <Content Include="bower_components\ngsignalr\dist\ngSignalR-0.0.1.min.js" />
+    <Content Include="bower_components\ngsignalr\dist\ngSignalR-0.0.3.js" />
+    <Content Include="bower_components\ngsignalr\dist\ngSignalR-0.0.3.min.js" />
     <Content Include="bower_components\ngsignalr\docs\fonts\OpenSans-Bold-webfont.svg" />
     <Content Include="bower_components\ngsignalr\docs\fonts\OpenSans-BoldItalic-webfont.svg" />
     <Content Include="bower_components\ngsignalr\docs\fonts\OpenSans-Italic-webfont.svg" />
@@ -275,7 +264,8 @@
     <Content Include="bower_components\ngsignalr\Gruntfile.js" />
     <Content Include="bower_components\ngsignalr\karma.conf.js" />
     <Content Include="bower_components\ngsignalr\spec\ngSignalR.provider.spec.js" />
-    <Content Include="bower_components\ngsignalr\spec\ngSignalR.service.spec.js" />
+    <Content Include="bower_components\ngsignalr\spec\ngSignalR.service.noproxy.spec.js" />
+    <Content Include="bower_components\ngsignalr\spec\ngSignalR.service.proxy.spec.js" />
     <Content Include="bower_components\ngsignalr\src\ngSignalR.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -1122,7 +1112,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="app\controllers\performance.js" />
     <Content Include="Content\site.css" />
     <Content Include="Content\ng-grid.css" />
     <Content Include="favicon.ico" />
@@ -1159,12 +1148,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Main.cshtml" />
-    <Content Include="Views\Home\Performance.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Home\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\components\services\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

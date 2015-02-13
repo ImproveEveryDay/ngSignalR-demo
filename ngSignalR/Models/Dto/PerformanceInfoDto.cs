@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace AngularSignal.Models.Dto
 {
-    public class DemoPayloadDto
+    public class PerformanceInfoDto
     {
         [JsonProperty("date")]
         public string Date { get; set; }
@@ -18,9 +16,9 @@ namespace AngularSignal.Models.Dto
         [JsonProperty("cpuUsage")]
         public string CpuUsage { get; set; }
 
-        public static DemoPayloadDto Map(PerformanceInfo entity)
+        public static PerformanceInfoDto Map(PerformanceInfo entity)
         {
-            var dto = new DemoPayloadDto
+            var dto = new PerformanceInfoDto
                 {
                     Date = entity.DateTime.ToLongDateString(),
                     Time = entity.DateTime.ToLongTimeString(),

@@ -29,7 +29,7 @@ function ($scope, signalr, $interval, $log) {
   };
 
   $scope.openConnection = function () {
-    var hub = signalr.createHubConnection('demoHub');
+    var hub = signalr.createHubConnection('performanceHub');
 
     connection = hub.connection;
     demoProxy = hub.proxy;

@@ -6,7 +6,7 @@ namespace AngularSignal.Hubs
     {
         public void SendMessage(ChatMessage cm)
         {
-            Clients.All.addMessage(cm.Username, cm.Message);
+            Clients.Others.addMessage(cm.Username, cm.Message);
         }
 
         public class ChatMessage

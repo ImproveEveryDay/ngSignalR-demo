@@ -12,7 +12,6 @@ namespace AngularSignal
             // Any connection or hub wire up and configuration should go here
             var connectionConfig = new HubConfiguration();
             connectionConfig.EnableDetailedErrors = true;
-
             app.MapSignalR("/signalr", connectionConfig);
         }
     }

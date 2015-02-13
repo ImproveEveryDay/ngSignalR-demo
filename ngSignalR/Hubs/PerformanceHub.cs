@@ -4,13 +4,13 @@ using Microsoft.AspNet.SignalR;
 
 namespace AngularSignal.Hubs
 {
-    public class DemoHub : Hub
+    public class PerformanceHub : Hub
     {
-        private readonly DemoTicker demoTicker;
+        private readonly PerformanceTicker demoTicker;
 
-        public DemoHub() : this(DemoTicker.Instance){}
+        public PerformanceHub() : this(PerformanceTicker.Instance){}
 
-        public DemoHub(DemoTicker ticker)
+        public PerformanceHub(PerformanceTicker ticker)
         {
             demoTicker = ticker;
         }
