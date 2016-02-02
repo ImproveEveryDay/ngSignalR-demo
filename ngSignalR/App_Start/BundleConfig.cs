@@ -28,7 +28,7 @@ namespace AngularSignal.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/app")
                 .Include("~/app/app.js")
-                .Include("~/bower_components/ngsignalr/dist/ngSignalR-0.0.3.js")
+                .Include("~/bower_components/ngsignalr/dist/ngSignalR-0.0.5.js")
                 .IncludeDirectory("~/app/components/services", "*.js", true)
                 .IncludeDirectory("~/app/components/directives", "*.js", true)
                 .IncludeDirectory("~/app/controllers", "*.js", true));

@@ -17,6 +17,6 @@
     "tests"
   ],
   "dependencies": {
-    "ngsignalr": "~0.0.2"
+    "ngsignalr": "~0.0.5"
   }
 }

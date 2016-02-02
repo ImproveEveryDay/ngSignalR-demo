@@ -8,76 +8,49 @@
 angular.module('ngSignalR', [])
 .constant('$', window.$)
 .provider('signalr', [function () {
-
+  
   'use strict';
 
-  var self = this;
-
   //Transport methods used by SignalR
-  self.transports = [
-    'webSockets',
-    'serverSentEvents',
-    'foreverFrame',
-    'longPolling'
-  ];
-
-  self.log = true;
+  this.transports = ['webSockets', 'serverSentEvents', 'foreverFrame', 'longPolling'];
 
   var errmsg = {
     callback: 'Callback function is not a function',
-    errCallback: 'ErrorCallback function is not a function'
+    errCallback: 'errorCallback function is not a function'
   };
 
-  self.setTransports = function (transports) {
+  this.setTransports = function (transports) {
     if (!angular.isArray(transports)) {
       throw new Error('setTransports expects an \'Array\'');
     } else {
-      self.transports = transports;
+      this.transports = transports;
     }
   };
 
-  self.getTransports = function () {
-    return self.transports;
+  this.getTransports = function () {
+    return this.transports;
   };
 
-  function checkConnectionCallback(connection, callback, noProxyCallback, proxyCallback) {
-    if (angular.isFunction(callback) && angular.isDefined(connection)) {
-      noProxyCallback.call(null, connection, callback);
-    } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
-      proxyCallback.call(null, callback);
-    }  else if (!angular.isFunction(callback)) {
-      throw new TypeError(errmsg.callback);
-    }
-  }
-
-  self.$get = ['$rootScope', '$q', '$', function ($rootScope, $q, $) {
+  this.$get = ['$rootScope', '$q', '$', function ($rootScope, $q, $) {
 
     //Get provided transports to use in connections.
-    var transports = self.transports;
+    var transports = this.transports;
 
     //Global collection of all active connections.
     var connections = [];
 
     return {
-      /**s
+      /**
        * Creates a Connection to a SignalR Hub without the generated proxy.
        * @param  {String} channel - Camel case reference to SingalR hub class.
-       * @param  {String} url - The URL to connect to if the server is not on the
-                                same domain.
        * @returns {Object} - Returns Proxy and Connection.
        */
-      createHubConnection: function (channel, url) {
+      createHubConnection: function (channel) {
 
         if (angular.isDefined(channel)) {
-          var connection;
+          var connection = $.hubConnection(),
+            cons = connections;
 
-          if (angular.isDefined(url)) {
-            connection = $.hubConnection(url);
-          } else {
-            connection = $.hubConnection();
-          }
-
-          var cons = connections;
           cons.push(connection);
 
           var proxy = connection.createHubProxy(channel);
@@ -94,19 +67,13 @@ angular.module('ngSignalR', [])
       /**
        * Creates socket connection using the generated proxy.
        * @param  {String} channel - Camel case reference to SingalR hub class.
-       * @param  {String} url - The URL to connect to if the server is not on the
-                                same domain.
        * @returns {Object} - Returns Connection.
        */
-      createConnection: function (channel, url) {
+      createConnection: function (channel) {
 
         if(angular.isDefined(channel)) {
-          if (angular.isDefined(url)) {
-            $.connection.hub.url = url;
-          }
-          
           var connection = $.connection[channel],
-              cons = connections;
+            cons = connections;
 
           cons.push(connection);
 
@@ -124,7 +91,7 @@ angular.module('ngSignalR', [])
       stopConnection: function (connection) {
 
         var deferred = $q.defer(),
-            cons = connections;
+          cons = connections;
 
         try {
           cons.splice(cons.indexOf(connection), 1);
@@ -145,7 +112,7 @@ angular.module('ngSignalR', [])
       stopAllConnections: function () {
 
         var deferred = $q.defer(),
-            cons = connections;
+          cons = connections;
 
         try {
           for (var i in cons) {
@@ -182,7 +149,7 @@ angular.module('ngSignalR', [])
         } else {
           throw new Error('connection is undefined');
         }
-
+        
       },
 
       /**
@@ -198,7 +165,7 @@ angular.module('ngSignalR', [])
         }).done(function () {
           deferred.resolve();
         });
-
+        
         return deferred.promise;
 
       },
@@ -293,12 +260,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection to log: If not given will use generated proxy.
        */
       starting: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.starting(callback);
-          }, function (callback) {
-            $.connection.hub.starting(callback);
-          });
+
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.starting(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
+           $.connection.hub.starting(callback);
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        } 
+
       },
 
       /**
@@ -307,12 +277,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection on which the Lifetime event will fire: if not specified, will use generated proxy.
        */
       received: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.received(callback);
-          }, function (callback) {
+
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.received(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.received(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        } 
+
       },
 
       /**
@@ -321,12 +294,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection on which the Lifetime event will fire: if not specified, will use generated proxy.
        */
       connectionSlow: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.connectionSlow(callback);
-          }, function (callback) {
+
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.connectionSlow(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.connectionSlow(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        }
+
       },
 
       /**
@@ -335,12 +311,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection on which the Lifetime event will fire: if not specified, will use generated proxy.
        */
       reconnecting: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.reconnecting(callback);
-          }, function (callback) {
+    
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.reconnecting(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.reconnecting(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        }
+
       },
 
       /**
@@ -349,12 +328,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection on which the Lifetime event will fire: if not specified, will use generated proxy.
        */
       reconnected: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.reconnected(callback);
-          }, function (callback) {
+        
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.reconnected(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.reconnected(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        }
+
       },
 
       /**
@@ -363,12 +345,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection on which the Lifetime event will fire: if not specified, will use generated proxy.
        */
       stateChanged: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.stateChanged(callback);
-          }, function (callback) {
+      
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.stateChanged(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.stateChanged(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        }
+
       },
 
       /**
@@ -377,12 +362,15 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - The connection on which the Lifetime event will fire: if not specified, will use generated proxy.
        */
       disconnected: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.disconnected(callback);
-          }, function (callback) {
+    
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.disconnected(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.disconnected(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        }
+
       },
 
       /**
@@ -391,14 +379,18 @@ angular.module('ngSignalR', [])
        * @param {Object} [connection] - the connection returned from hubs connection: if not specified, will use generated proxy.
        */
       error: function (callback, connection) {
-        checkConnectionCallback(connection, callback,
-          function (connection, callback) {
-            connection.error(callback);
-          }, function (callback) {
+
+        if (angular.isFunction(callback) && angular.isDefined(connection)) {
+          connection.error(callback);
+        } else if (angular.isFunction(callback) && angular.isUndefined(connection)) {
            $.connection.hub.error(callback);
-          });
+        }  else if (!angular.isFunction(callback)) {
+          throw new TypeError(errmsg.callback);
+        }
+
       }
 
     };
   }];
-}]);
+}
+]);

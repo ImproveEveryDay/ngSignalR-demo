@@ -1,6 +1,6 @@
 {
   "name": "ngSignalR",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "homepage": "https://github.com/danielfoord/ngSignalR",
   "authors": [
     "Daniel Foord <danfoord1@gmail.com>"
@@ -19,14 +19,13 @@
     "test",
     "tests"
   ],
-  "_release": "0.0.3",
+  "_release": "0.0.5",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.3",
-    "commit": "4c5179848fefeb27d9c26040e40b42d1d6e2b8fd"
+    "tag": "0.0.5",
+    "commit": "90d1f4de03d9449496944cbff204c5c86cd8660c"
   },
   "_source": "git://github.com/danielfoord/ngsignalr.git",
-  "_target": "~0.0.3",
-  "_originalSource": "ngsignalr",
-  "_direct": true
+  "_target": "~0.0.5",
+  "_originalSource": "ngsignalr"
 }
